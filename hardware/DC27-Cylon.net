@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/usr1/Projects/DC27/hardware/DC27-Cylon.sch)
-    (date "Tue 25 Jun 2019 09:56:30 AM PDT")
+    (date "Tue 25 Jun 2019 11:21:01 AM PDT")
     (tool "Eeschema 5.1.2")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -23,6 +23,7 @@
         (field (name Digikey) https://www.digikey.com/product-detail/en/keystone-electronics/2477/36-2477-ND/303822)
         (field (name MPN) DNP)
         (field (name Manufacturer) N/A)
+        (field (name OPL#) DNP)
         (field (name _MPN) 2464))
       (libsource (lib Device) (part Battery) (description "Multiple-cell battery"))
       (sheetpath (names /) (tstamps /))
@@ -40,7 +41,7 @@
       (tstamp 5D1141DF))
     (comp (ref C3)
       (value 22p)
-      (footprint Capacitors_SMD:C_0603)
+      (footprint Sparkfun_Capacitors:0603)
       (datasheet ~)
       (fields
         (field (name DPN) 1276-1116-1-ND)
@@ -53,7 +54,7 @@
       (tstamp 5D1145D2))
     (comp (ref C1)
       (value 22p)
-      (footprint Capacitors_SMD:C_0603)
+      (footprint Sparkfun_Capacitors:0603)
       (datasheet ~)
       (fields
         (field (name DPN) 1276-1116-1-ND)
@@ -66,7 +67,7 @@
       (tstamp 5D114997))
     (comp (ref C2)
       (value 10μ)
-      (footprint Capacitors_SMD:C_0603)
+      (footprint Sparkfun_Capacitors:0603)
       (datasheet ~)
       (fields
         (field (name DPN) 1276-1192-1-ND)
@@ -79,7 +80,7 @@
       (tstamp 5D11F166))
     (comp (ref C5)
       (value 22p)
-      (footprint Capacitors_SMD:C_0603)
+      (footprint Sparkfun_Capacitors:0603)
       (datasheet ~)
       (fields
         (field (name DPN) 1276-1116-1-ND)
@@ -92,7 +93,7 @@
       (tstamp 5D11F7EA))
     (comp (ref C4)
       (value 22p)
-      (footprint Capacitors_SMD:C_0603)
+      (footprint Sparkfun_Capacitors:0603)
       (datasheet ~)
       (fields
         (field (name DPN) 1276-1116-1-ND)
@@ -109,7 +110,8 @@
       (datasheet ~)
       (fields
         (field (name MPN) DNP)
-        (field (name Manufacturer) N/A))
+        (field (name Manufacturer) N/A)
+        (field (name OPL#) DNP))
       (libsource (lib Connector_Generic) (part Conn_02x03_Odd_Even) (description "Generic connector, double row, 02x03, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"))
       (sheetpath (names /) (tstamps /))
       (tstamp 5D141938))
@@ -236,7 +238,7 @@
       (tstamp 5D11A157))
     (comp (ref U2)
       (value AZ1117-3.3)
-      (footprint Digikey:SOT-23-3)
+      (footprint Package_TO_SOT_SMD:SOT-223-3_TabPin2)
       (datasheet https://www.diodes.com/assets/Datasheets/AZ1117.pdf)
       (fields
         (field (name MPN) AZ1117CH-3.3TRG1)
@@ -357,17 +359,23 @@
       (tstamp 5D149955))
     (comp (ref J1)
       (value CONN_04LOCK)
-      (footprint 1X04_LOCK)
+      (footprint Sparkfun_Connectors:1X04_LOCK)
       (fields
-        (field (name Field4) CONN-09696))
+        (field (name Field4) CONN-09696)
+        (field (name MPN) DNP)
+        (field (name Manufacturer) N/A)
+        (field (name OPL#) DNP))
       (libsource (lib SparkFun-Connectors) (part CONN_04LOCK) (description "Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections  <b>On any of the 0.1 inch spaced packages, you can populate with these:</b><ul><li><a href=\"https://www.sparkfun.com/products/116\"> Break Away Headers - Straight</a> (PRT-00116)</li><li><a href=\"https://www.sparkfun.com/products/553\"> Break Away Male Headers - Right Angle</a> (PRT-00553)</li><li><a href=\"https://www.sparkfun.com/products/115\"> Female Headers</a> (PRT-00115)</li><li><a href=\"https://www.sparkfun.com/products/117\"> Break Away Headers - Machine Pin</a> (PRT-00117)</li><li><a href=\"https://www.sparkfun.com/products/743\"> Break Away Female Headers - Swiss Machine Pin</a> (PRT-00743)</li></ul> <b> For SCREWTERMINALS and SPRING TERMINALS visit here:</b><ul><li><a href=\"https://www.sparkfun.com/search/results?term=Screw+Terminals\"> Screw Terimnals on SparkFun.com</a> (5mm/3.5mm/2.54mm spacing)</li></ul> <b>This device is also useful as a general connection point to wire up your design to another part of your project. Our various solder wires solder well into these plated through hole pads.</b><ul><li><a href=\"https://www.sparkfun.com/products/11375\"> Hook-Up Wire - Assortment (Stranded, 22 AWG)</a> (PRT-11375)</li><li><a href=\"https://www.sparkfun.com/products/11367\"> Hook-Up Wire - Assortment (Solid Core, 22 AWG)</a> (PRT-11367)</li><li><a href=\"https://www.sparkfun.com/categories/141\"> View the entire wire category on our website here</a></li> </ul> <b>Special notes:</b>   Molex polarized connector foot print use with SKU : PRT-08231 with associated crimp pins and housings. 1MM SMD Version SKU: PRT-10208"))
       (sheetpath (names /) (tstamps /))
       (tstamp 5D194EB2))
     (comp (ref J2)
       (value CONN_05LOCK)
-      (footprint 1X05_LOCK)
+      (footprint Sparkfun_Connectors:1X05_LOCK)
       (fields
-        (field (name Field4) XXX-00000))
+        (field (name Field4) XXX-00000)
+        (field (name MPN) DNP)
+        (field (name Manufacturer) N/A)
+        (field (name OPL#) DNP))
       (libsource (lib SparkFun-Connectors) (part CONN_05LOCK) (description "Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections  <b>On any of the 0.1 inch spaced packages, you can populate with these:</b><ul><li><a href=\"https://www.sparkfun.com/products/116\"> Break Away Headers - Straight</a> (PRT-00116)</li><li><a href=\"https://www.sparkfun.com/products/553\"> Break Away Male Headers - Right Angle</a> (PRT-00553)</li><li><a href=\"https://www.sparkfun.com/products/115\"> Female Headers</a> (PRT-00115)</li><li><a href=\"https://www.sparkfun.com/products/117\"> Break Away Headers - Machine Pin</a> (PRT-00117)</li><li><a href=\"https://www.sparkfun.com/products/743\"> Break Away Female Headers - Swiss Machine Pin</a> (PRT-00743)</li></ul> <b> For SCREWTERMINALS and SPRING TERMINALS visit here:</b><ul><li><a href=\"https://www.sparkfun.com/search/results?term=Screw+Terminals\"> Screw Terimnals on SparkFun.com</a> (5mm/3.5mm/2.54mm spacing)</li></ul> <b>This device is also useful as a general connection point to wire up your design to another part of your project. Our various solder wires solder well into these plated through hole pads.</b><ul><li><a href=\"https://www.sparkfun.com/products/11375\"> Hook-Up Wire - Assortment (Stranded, 22 AWG)</a> (PRT-11375)</li><li><a href=\"https://www.sparkfun.com/products/11367\"> Hook-Up Wire - Assortment (Solid Core, 22 AWG)</a> (PRT-11367)</li><li><a href=\"https://www.sparkfun.com/categories/141\"> View the entire wire category on our website here</a></li> </ul> <b>Special notes:</b>   Molex polarized connector foot print use with SKU : PRT-08231 with associated crimp pins and housings. 1MM SMD Version SKU: PRT-10208"))
       (sheetpath (names /) (tstamps /))
       (tstamp 5D1DA889)))

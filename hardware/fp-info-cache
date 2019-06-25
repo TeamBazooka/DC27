@@ -1,4 +1,4 @@
-17951679285548625
+17950117938143625
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -42049,13 +42049,6 @@ SMD SMT ceramic resonator filter filter hand-soldering
 3
 3
 DC27-Cylon
-BatteryHolder_Keystone_2477_4xAA
-4xAA cell battery holder, Keystone P/N 2477
-AA battery cell holder
-0
-2
-2
-DC27-Cylon
 Crystal_SMD_3225-4Pin_3.2x2.5mm
 SMD Crystal SERIES SMD3225/4 http://www.txccrystal.com/images/pdf/7m-accuracy.pdf, 3.2x2.5mm^2 package
 SMD SMT crystal
@@ -42063,12 +42056,12 @@ SMD SMT crystal
 4
 2
 DC27-Cylon
-C_0805_2012Metric
-Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator
-capacitor
+oldschoolcylon2
+
+
 0
-2
-2
+0
+0
 Digikey
 3-SIP_Module_TM1000Q
 
