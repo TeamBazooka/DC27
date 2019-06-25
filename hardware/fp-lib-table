@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name DC27-Cylon)(type KiCad)(uri ${KIPRJMOD}/DC27-Cylon.pretty)(options "")(descr ""))
+)
