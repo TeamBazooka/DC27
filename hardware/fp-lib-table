@@ -1,3 +1,4 @@
 (fp_lib_table
   (lib (name DC27-Cylon)(type KiCad)(uri ${KIPRJMOD}/DC27-Cylon.pretty)(options "")(descr ""))
+  (lib (name "oldschoolcylon2_dose")(type KiCad)(uri "$(KIPRJMOD)/oldschoolcylon2_dose.pretty")(options "")(descr ""))
 )
