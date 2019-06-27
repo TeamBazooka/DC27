@@ -20,7 +20,7 @@ U 1 1 5D113ABD
 P 800 6100
 F 0 "BT1" H 908 6146 50  0000 L CNN
 F 1 "Battery" H 908 6055 50  0000 L CNN
-F 2 "" V 800 6160 50  0001 C CNN
+F 2 "DC27-Cylon:BatteryHolder_Keystone_2464_3xAA" V 800 6160 50  0001 C CNN
 F 3 "~" V 800 6160 50  0001 C CNN
 F 4 "DNP" H 800 6100 50  0001 C CNN "MPN"
 F 5 "N/A" H 800 6100 50  0001 C CNN "Manufacturer"
@@ -282,7 +282,7 @@ U 1 1 5D141938
 P 1200 5000
 F 0 "ISP1" H 1250 5200 50  0000 C CNN
 F 1 "ISP" H 1250 4800 50  0001 C CNN
-F 2 "Sparkfun_Connectors:2X3" H 1200 5000 50  0001 C CNN
+F 2 "DC27-Cylon:ISP_2X3" H 1200 5000 50  0001 C CNN
 F 3 "~" H 1200 5000 50  0001 C CNN
 F 4 "DNP" H 1200 5000 50  0001 C CNN "MPN"
 F 5 "N/A" H 1200 5000 50  0001 C CNN "Manufacturer"
@@ -1216,23 +1216,8 @@ F 3 "" H 7650 1700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L SparkFun-LED:LED0603 D25
-U 1 1 5D1DA41C
-P 10900 1450
-F 0 "D25" H 10977 1400 45  0000 L CNN
-F 1 "LED0603" H 10978 1411 45  0001 L CNN
-F 2 "Sparkfun_LED:LED-0603" V 10700 1450 20  0001 C CNN
-F 3 "" H 10900 1450 50  0001 C CNN
-F 4 "XXX-00000" H 10978 1316 60  0001 L CNN "Field4"
-F 5 "ORH-R36G" H 10900 1450 50  0001 C CNN "MPN"
-F 6 "Orient" H 10900 1450 50  0001 C CNN "Manufacturer"
-F 7 "10351" H 10900 1450 50  0001 C CNN "OPL#"
-	1    10900 1450
-	1    0    0    -1  
-$EndComp
-$Comp
 L SparkFun-LED:LED0603 D24
-U 1 1 5D1DA42A
+U 1 1 5D1DA41C
 P 10550 1450
 F 0 "D24" H 10627 1400 45  0000 L CNN
 F 1 "LED0603" H 10628 1411 45  0001 L CNN
@@ -1290,8 +1275,6 @@ F 7 "10351" H 9500 1450 50  0001 C CNN "OPL#"
 	1    9500 1450
 	1    0    0    -1  
 $EndComp
-Text Label 10900 1050 1    50   ~ 0
-LED24
 Text Label 10550 1050 1    50   ~ 0
 LED23
 Text Label 10200 1050 1    50   ~ 0
@@ -1301,22 +1284,8 @@ LED21
 Text Label 9500 1050 1    50   ~ 0
 LED20
 $Comp
-L Device:R R25
-U 1 1 5D1DA466
-P 10900 1200
-F 0 "R25" H 10970 1246 50  0000 L CNN
-F 1 "66.3" H 10970 1155 50  0000 L CNN
-F 2 "Sparkfun_Resistors:0603" V 10830 1200 50  0001 C CNN
-F 3 "~" H 10900 1200 50  0001 C CNN
-F 4 "RC0603FR-0766K5L" H 10900 1200 50  0001 C CNN "MPN"
-F 5 "Yageo" H 10900 1200 50  0001 C CNN "Manufacturer"
-F 6 "818" H 10900 1200 50  0001 C CNN "OPL#"
-	1    10900 1200
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R24
-U 1 1 5D1DA473
+U 1 1 5D1DA466
 P 10550 1200
 F 0 "R24" H 10620 1246 50  0000 L CNN
 F 1 "66.3" H 10620 1155 50  0000 L CNN
@@ -1384,17 +1353,7 @@ Connection ~ 9850 1700
 Wire Wire Line
 	9850 1650 9850 1700
 Wire Wire Line
-	10200 1700 10550 1700
-Connection ~ 10200 1700
-Wire Wire Line
 	10200 1650 10200 1700
-Wire Wire Line
-	10550 1700 10900 1700
-Connection ~ 10550 1700
-Wire Wire Line
-	10550 1650 10550 1700
-Wire Wire Line
-	10900 1700 10900 1650
 $Comp
 L power:GND #PWR0116
 U 1 1 5D1DA4B4
@@ -1417,56 +1376,40 @@ Wire Wire Line
 	8850 1700 9200 1700
 Connection ~ 6050 1700
 Connection ~ 5700 1700
-Text Label 4400 2750 0    50   ~ 0
-LED0
-Text Label 4400 2850 0    50   ~ 0
-LED1
-Text Label 4400 2950 0    50   ~ 0
-LED2
-Text Label 4400 3050 0    50   ~ 0
-LED3
-Text Label 4400 3150 0    50   ~ 0
-LED4
-Text Label 4400 3250 0    50   ~ 0
-LED5
-Text Label 4400 3350 0    50   ~ 0
-LED6
 Text Label 4400 3450 0    50   ~ 0
+LED0
+Text Label 4400 3350 0    50   ~ 0
+LED1
+Text Label 4400 3250 0    50   ~ 0
+LED2
+Text Label 4400 3150 0    50   ~ 0
+LED3
+Text Label 4400 3050 0    50   ~ 0
+LED4
+Text Label 4400 2950 0    50   ~ 0
+LED5
+Text Label 4400 2850 0    50   ~ 0
+LED6
+Text Label 4400 2750 0    50   ~ 0
 LED7
-Text Label 4400 4200 0    50   ~ 0
+Text Label 4400 4900 0    50   ~ 0
 LED8
 Text Label 5700 1050 1    50   ~ 0
 LED9
-Text Label 4400 4300 0    50   ~ 0
-LED9
-Text Label 4400 4400 0    50   ~ 0
-LED10
-Text Label 4400 4500 0    50   ~ 0
-LED11
-Text Label 4400 4600 0    50   ~ 0
-LED12
-Text Label 4400 4700 0    50   ~ 0
-LED13
 Text Label 4400 4800 0    50   ~ 0
+LED9
+Text Label 4400 4700 0    50   ~ 0
+LED10
+Text Label 4400 4600 0    50   ~ 0
+LED11
+Text Label 4400 4500 0    50   ~ 0
+LED12
+Text Label 4400 4400 0    50   ~ 0
+LED13
+Text Label 4400 4300 0    50   ~ 0
 LED14
-Text Label 4400 4900 0    50   ~ 0
+Text Label 4400 4200 0    50   ~ 0
 LED15
-Text Label 4400 5650 0    50   ~ 0
-LED16
-Text Label 4400 5750 0    50   ~ 0
-LED17
-Text Label 4400 5850 0    50   ~ 0
-LED18
-Text Label 4400 5950 0    50   ~ 0
-LED19
-Text Label 4400 6050 0    50   ~ 0
-LED20
-Text Label 4400 6150 0    50   ~ 0
-LED21
-Text Label 4400 6250 0    50   ~ 0
-LED22
-Text Label 4400 6350 0    50   ~ 0
-LED24
 $Comp
 L power:GND #PWR0117
 U 1 1 5D275060
@@ -1480,9 +1423,9 @@ F 3 "" H 3450 7200 50  0001 C CNN
 $EndComp
 Text Label 1900 2550 0    50   ~ 0
 SDATA
-Text Label 1900 2650 0    50   ~ 0
-SCLK
 Text Label 1900 2750 0    50   ~ 0
+SCLK
+Text Label 1900 2650 0    50   ~ 0
 SLATCH
 NoConn ~ 800  3350
 NoConn ~ 800  3450
@@ -1604,10 +1547,6 @@ Wire Wire Line
 	3350 4800 3500 4800
 Wire Wire Line
 	4400 5000 4450 5000
-Wire Wire Line
-	4450 5000 4450 5400
-Wire Wire Line
-	4450 5400 3350 5400
 Wire Wire Line
 	3350 5400 3350 6250
 Wire Wire Line
@@ -1775,4 +1714,29 @@ Wire Wire Line
 Wire Wire Line
 	6350 2650 6000 2650
 Connection ~ 6000 2650
+Wire Wire Line
+	10550 1650 10550 1700
+Wire Wire Line
+	10550 1700 10200 1700
+Connection ~ 10200 1700
+Wire Wire Line
+	4450 5400 3350 5400
+Wire Wire Line
+	4450 5000 4450 5400
+Text Label 4400 5650 0    50   ~ 0
+LED23
+Text Label 4400 5750 0    50   ~ 0
+LED22
+Text Label 4400 5850 0    50   ~ 0
+LED21
+Text Label 4400 5950 0    50   ~ 0
+LED20
+Text Label 4400 6050 0    50   ~ 0
+LED19
+Text Label 4400 6150 0    50   ~ 0
+LED18
+Text Label 4400 6250 0    50   ~ 0
+LED17
+Text Label 4400 6350 0    50   ~ 0
+LED16
 $EndSCHEMATC
