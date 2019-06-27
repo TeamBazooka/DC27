@@ -246,6 +246,43 @@ X C C 0 -200 100 U 40 40 1 1 P
 ENDDRAW
 ENDDEF
 #
+# dk_Logic-Shift-Registers_74HC595D_118
+#
+DEF dk_Logic-Shift-Registers_74HC595D_118 U 0 40 Y Y 1 F N
+F0 "U" -297 38 60 H V L CNN
+F1 "dk_Logic-Shift-Registers_74HC595D_118" 100 -500 60 V V C CNN
+F2 "digikey-footprints:SOIC-16_W3.90mm" 200 200 60 H I L CNN
+F3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT595.pdf" 200 300 60 H I L CNN
+F4 "1727-2821-1-ND" 200 400 60 H I L CNN "Digi-Key_PN"
+F5 "74HC595D,118" 200 500 60 H I L CNN "MPN"
+F6 "Integrated Circuits (ICs)" 200 600 60 H I L CNN "Category"
+F7 "Logic - Shift Registers" 200 700 60 H I L CNN "Family"
+F8 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT595.pdf" 200 800 60 H I L CNN "DK_Datasheet_Link"
+F9 "/product-detail/en/nexperia-usa-inc/74HC595D,118/1727-2821-1-ND/763394" 200 900 60 H I L CNN "DK_Detail_Page"
+F10 "IC SHIFT REGISTER 8BIT 16SOIC" 200 1000 60 H I L CNN "Description"
+F11 "Nexperia USA Inc." 200 1100 60 H I L CNN "Manufacturer"
+F12 "Active" 200 1200 60 H I L CNN "Status"
+DRAW
+S -300 0 400 -1000 0 1 0 f
+X Q1 1 500 -200 100 L 50 50 1 1 O
+X MR 10 -400 -300 100 R 50 50 1 1 I
+X SHCP 11 -400 -400 100 R 50 50 1 1 I
+X STCP 12 -400 -500 100 R 50 50 1 1 I
+X OE 13 -400 -600 100 R 50 50 1 1 I
+X DS 14 -400 -700 100 R 50 50 1 1 I
+X Q0 15 500 -100 100 L 50 50 1 1 O
+X VCC 16 0 100 100 D 50 50 1 1 W
+X Q2 2 500 -300 100 L 50 50 1 1 O
+X Q3 3 500 -400 100 L 50 50 1 1 O
+X Q4 4 500 -500 100 L 50 50 1 1 O
+X Q5 5 500 -600 100 L 50 50 1 1 O
+X Q6 6 500 -700 100 L 50 50 1 1 O
+X Q7 7 500 -800 100 L 50 50 1 1 O
+X GND 8 0 -1100 100 U 50 50 1 1 W
+X Q7S 9 500 -900 100 L 50 50 1 1 O
+ENDDRAW
+ENDDEF
+#
 # power_+3.3V
 #
 DEF power_+3.3V #PWR 0 0 Y Y 1 F P
