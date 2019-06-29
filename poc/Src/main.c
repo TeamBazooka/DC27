@@ -98,10 +98,20 @@ uint16_t waits[NUM_LEDS];
 uint16_t wait = 100;
 int direction = 1;
 
-void blink(GPIO_TypeDef *port, uint16_t pin, uint16_t time) {
-  HAL_GPIO_WritePin(port, pin, 1);
-  HAL_Delay(time);
+void low(GPIO_TypeDef *port, uint16_t pin) {
   HAL_GPIO_WritePin(port, pin, 0);
+  // HAL_Delay(200);
+}
+
+void high(GPIO_TypeDef *port, uint16_t pin) {
+  HAL_GPIO_WritePin(port, pin, 1);
+  // HAL_Delay(200);
+} 
+
+void blink(GPIO_TypeDef *port, uint16_t pin, uint16_t time) {
+  high(port, pin);
+  HAL_Delay(time);
+  low(port, pin);
 }
 
 void getDateTime(void) {
@@ -162,6 +172,32 @@ void enterStandbyMode(void)
 	HAL_PWR_EnterSTANDBYMode();
 }
 
+#define ea_clock_pin GPIO_PIN_6
+#define ea_data_pin GPIO_PIN_5
+#define ea_data_port GPIOA
+#define latch_time 10
+
+void shiftData(uint8_t data) {
+  low(ea_data_port, ea_clock_pin);
+  low(ea_data_port, ea_data_pin);
+
+  for(uint8_t ii=7;ii!=0xff;ii--) {
+    low(ea_data_port, ea_clock_pin);
+    if(data & (1<<ii)) {
+      high(ea_data_port, ea_data_pin);
+    }
+    else {	
+      low(ea_data_port, ea_data_pin);
+    }
+
+    high(ea_data_port, ea_clock_pin);
+    // HAL_Delay(latch_time);
+    low(ea_data_port, ea_data_pin);
+  }
+  low(ea_data_port, ea_clock_pin);
+  // low(data_port, ea_data_pin);
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -214,17 +250,33 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint8_t data = 1;
+  uint8_t left = 1;
   while (1)
   {
-    for(uint ii=0;ii<NUM_LEDS;ii++) {
-      blink(ports[ii], pins[ii], waits[ii]);
+    if(data == 0x80) {
+      left = 0;
     }
-    for (int ii = (NUM_LEDS-1); ii >= 0; ii--)
-    {
-      blink(ports[ii], pins[ii], waits[ii]);
+    if(data == 0x01) {
+      left = 1;
     }
-    setAlarm(1);
-    enterStandbyMode();
+    // shiftData((data && 0xff00) >> 8);
+    shiftData(data);
+    if(left == 1) {
+      data = data << 1;
+    } else {
+      data = data >> 1;
+    }
+    HAL_Delay(500);
+    // for(uint ii=0;ii<NUM_LEDS;ii++) {
+    //   blink(ports[ii], pins[ii], waits[ii]);
+    // }
+    // for (int ii = (NUM_LEDS-1); ii >= 0; ii--)
+    // {
+    //   blink(ports[ii], pins[ii], waits[ii]);
+    // }
+    // setAlarm(1);
+    // enterStandbyMode();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
