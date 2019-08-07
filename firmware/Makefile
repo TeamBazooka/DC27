@@ -33,19 +33,18 @@ BUILD_DIR = build
 # Toolchain path
 TOOLCHAIN_RELEASE=gcc-arm-none-eabi-8-2019-q3-update
 ARM_BASE_URL=https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/
-BASE_URL = https://bintray.com/platformio/dl-packages/download_file?file_path=
+UPLOAD_URL = https://sourceforge.net/projects/stm32flash/files/stm32flash-0.5.tar.gz/download
 OS = $(shell uname -s)
 ifeq ($(OS),Linux)
 TOOLCHAIN_URL = $(ARM_BASE_URL)/$(TOOLCHAIN_RELEASE)-linux.tar.bz2
-UPLOAD_URL = $(BASE_URL)tool-stlink-linux_x86_64-1.10400.0.tar.gz
 endif
 ifeq ($(OS),Darwin)
 TOOLCHAIN_URL = $(ARM_BASE_URL)/$(TOOLCHAIN_RELEASE)-mac.tar.bz2
-UPLOAD_URL = $(BASE_URL)tool-stlink-darwin_x86_64-1.10400.0.tar.gz
 endif
 TOOLCHAIN_PATH = .toolchain
 GCC_PATH = $(TOOLCHAIN_PATH)/$(TOOLCHAIN_RELEASE)/bin
 UPLOAD_PATH = $(TOOLCHAIN_PATH)/upload
+UPLOAD_DIR = $(UPLOAD_PATH)/stm32flash
 
 ######################################
 # source
@@ -101,7 +100,7 @@ SZ = $(PREFIX)size
 endif
 HEX = $(CP) -O ihex
 BIN = $(CP) -O binary -S
-ST_FLASH = $(UPLOAD_PATH)/bin/st-flash
+ST_FLASH = $(UPLOAD_PATH)/stm32flash/stm32flash
  
 #######################################
 # CFLAGS
@@ -208,9 +207,10 @@ $(UPLOAD_PATH):
 	mkdir -p $@
 	wget $(UPLOAD_URL) -O $(UPLOAD_PATH)/upload.tar.gz
 	tar -xf $(UPLOAD_PATH)/upload.tar.gz -C $(UPLOAD_PATH)
+	make -C $(UPLOAD_DIR)
 
 upload: $(BUILD_DIR)/$(TARGET).bin $(UPLOAD_PATH)
-	$(ST_FLASH) write $(BUILD_DIR)/$(TARGET).bin 0x08000000
+	$(ST_FLASH) -w $(BUILD_DIR)/$(TARGET).bin -v -g 0x0800000 /dev/ttyUSB0 
 
 	
 
