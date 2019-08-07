@@ -33,7 +33,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define NUM_LEDS 16
+#define NUM_LEDS 24
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -54,11 +54,28 @@ DMA_HandleTypeDef hdma_usart1_tx;
 RTC_TimeTypeDef sTime;
 RTC_DateTypeDef sDate;
 RTC_AlarmTypeDef sAlarm;
-uint8_t waits[NUM_LEDS] = { 200, 175, 175, 125, 125, 100, 75, 75, 75, 75, 100, 125, 125, 175, 175, 200 };
+uint8_t waits[NUM_LEDS] = {
+  200, 175, 175, 175,
+  125, 125, 100, 100,
+  100, 100, 75, 75,
+  75, 75, 100, 100,
+  100, 100, 125, 125,
+  175, 175, 175, 200
+};
+
+uint32_t grid[24] = {
+  0x010000, 0x020000, 0x040000, 0x080000,
+  0x100000, 0x200000, 0x400000, 0x800000,
+  0x000100, 0x000200, 0x000400, 0x000800,
+  0x001000, 0x002000, 0x004000, 0x008000,
+  0x000001, 0x000002, 0x000004, 0x000008,
+  0x000010, 0x000020, 0x000040, 0x000080
+};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
+void
+SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_SPI1_Init(void);
@@ -69,7 +86,7 @@ void getDateTime(void);
 void setDateTime(void);
 void setAlarm(uint8_t minutes);
 void enterStandbyMode(void);
-void shiftOut(uint16_t data);
+void shiftOut(uint32_t data);
 
 /* USER CODE END PFP */
 
@@ -108,8 +125,8 @@ void setDateTime(void) {
 void setAlarm(uint8_t minutes) {
   setDateTime();
   sAlarm.AlarmTime.Hours = 0x0;
-  sAlarm.AlarmTime.Minutes = 0x0;//minutes;
-  sAlarm.AlarmTime.Seconds = 5;
+  sAlarm.AlarmTime.Minutes = minutes;
+  sAlarm.AlarmTime.Seconds = 0x0;
   sAlarm.AlarmTime.SubSeconds = 0x0;
   sAlarm.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
   sAlarm.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
@@ -132,12 +149,12 @@ void enterStandbyMode(void)
 	/* Enter STANDBY mode */
 	HAL_PWR_EnterSTANDBYMode();
 }
-void shiftOut(uint16_t data) {
+void shiftOut(uint32_t data) {
   HAL_GPIO_WritePin(SLATCH_GPIO_Port, SLATCH_Pin, 0);
   HAL_GPIO_WritePin(SCLK_GPIO_Port, SCLK_Pin, 0);
   HAL_GPIO_WritePin(SDATA_GPIO_Port, SDATA_Pin, 0);
 
-  for (uint8_t ii = 0; ii < 16; ii++)  {
+  for (uint8_t ii = 0; ii < NUM_LEDS; ii++)  {
     HAL_GPIO_WritePin(SDATA_GPIO_Port, SDATA_Pin, data & (1 << ii) ? 1 : 0);
 
     HAL_GPIO_WritePin(SCLK_GPIO_Port, SCLK_Pin, 1);
@@ -192,30 +209,23 @@ int main(void)
   if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB)) {
     __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU | PWR_FLAG_SB);
   }
-  uint16_t data = 1;
-  uint8_t left = 1;
   uint8_t times = 200;
   while (1)
   {
-	    shiftOut(data);
-	    int place = log2(data);
-	    if(left == 1) {
-	      data = data << 1;
-	    } else {
-	      data = data >> 1;
-	    }
-	    if(data == 32768) {
-	      left = 0;
-	    }
-	    if(data == 1) {
-	      left = 1;
-	    }
-	    HAL_Delay(waits[place]);
-	    times--;
-	    if(times == 0) {
-	    	setAlarm(5);
-	    	enterStandbyMode();
-	    }
+    for(uint8_t ii = 0;ii < 24; ii++) {
+      shiftOut(grid[ii]);
+      HAL_Delay(waits[ii]);
+    }
+    for (uint8_t ii = 23; ii != 255; ii--) {
+      shiftOut(grid[ii]);
+      HAL_Delay(waits[ii]);
+    }
+    times--;
+    if(times == 0) {
+      shiftOut(0);
+      setAlarm(1);
+      enterStandbyMode();
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
