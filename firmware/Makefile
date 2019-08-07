@@ -20,7 +20,7 @@ TARGET = firmware
 # building variables
 ######################################
 # debug build?
-DEBUG = 1
+DEBUG = 0
 # optimization
 OPT = -Og
 
@@ -31,8 +31,8 @@ OPT = -Og
 # Build path
 BUILD_DIR = build
 # Toolchain path
-TOOLCHAIN_RELEASE=gcc-arm-none-eabi-8-2018-q4-major
-ARM_BASE_URL=https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4
+TOOLCHAIN_RELEASE=gcc-arm-none-eabi-8-2019-q3-update
+ARM_BASE_URL=https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/
 BASE_URL = https://bintray.com/platformio/dl-packages/download_file?file_path=
 OS = $(shell uname -s)
 ifeq ($(OS),Linux)

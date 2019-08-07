@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -33,7 +33,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define NUM_LEDS 16
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -51,6 +51,10 @@ DMA_HandleTypeDef hdma_usart1_tx;
 
 /* USER CODE BEGIN PV */
 
+RTC_TimeTypeDef sTime;
+RTC_DateTypeDef sDate;
+RTC_AlarmTypeDef sAlarm;
+uint8_t waits[NUM_LEDS] = { 200, 175, 175, 125, 125, 100, 75, 75, 75, 75, 100, 125, 125, 175, 175, 200 };
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -61,11 +65,88 @@ static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_RTC_Init(void);
 /* USER CODE BEGIN PFP */
+void getDateTime(void);
+void setDateTime(void);
+void setAlarm(uint8_t minutes);
+void enterStandbyMode(void);
+void shiftOut(uint16_t data);
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void getDateTime(void) {
+  __disable_irq();
+  HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BCD);
+  HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BCD);
+  __enable_irq();
+}
+
+void setDateTime(void) {
+  __disable_irq();
+  sTime.Hours = 0x0;
+  sTime.Minutes = 0x0;
+  sTime.Seconds = 0x0;
+  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
+  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
+  {
+	Error_Handler();
+  }
+  sDate.WeekDay = RTC_WEEKDAY_MONDAY;
+  sDate.Month = RTC_MONTH_JANUARY;
+  sDate.Date = 0x1;
+  sDate.Year = 0x0;
+
+  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD) != HAL_OK)
+  {
+	Error_Handler();
+  }
+  __enable_irq();
+}
+
+void setAlarm(uint8_t minutes) {
+  setDateTime();
+  sAlarm.AlarmTime.Hours = 0x0;
+  sAlarm.AlarmTime.Minutes = 0x0;//minutes;
+  sAlarm.AlarmTime.Seconds = 5;
+  sAlarm.AlarmTime.SubSeconds = 0x0;
+  sAlarm.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+  sAlarm.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
+  sAlarm.AlarmMask = RTC_ALARMMASK_NONE;
+  sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
+  sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+  sAlarm.AlarmDateWeekDay = 0x1;
+  sAlarm.Alarm = RTC_ALARM_A;
+  if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BCD) != HAL_OK)
+  {
+	Error_Handler();
+  }
+}
+
+void enterStandbyMode(void)
+{
+	/* Enable Power Peripheral */
+	__HAL_RCC_PWR_CLK_ENABLE();
+
+	/* Enter STANDBY mode */
+	HAL_PWR_EnterSTANDBYMode();
+}
+void shiftOut(uint16_t data) {
+  HAL_GPIO_WritePin(SLATCH_GPIO_Port, SLATCH_Pin, 0);
+  HAL_GPIO_WritePin(SCLK_GPIO_Port, SCLK_Pin, 0);
+  HAL_GPIO_WritePin(SDATA_GPIO_Port, SDATA_Pin, 0);
+
+  for (uint8_t ii = 0; ii < 16; ii++)  {
+    HAL_GPIO_WritePin(SDATA_GPIO_Port, SDATA_Pin, data & (1 << ii) ? 1 : 0);
+
+    HAL_GPIO_WritePin(SCLK_GPIO_Port, SCLK_Pin, 1);
+    HAL_GPIO_WritePin(SCLK_GPIO_Port, SCLK_Pin, 0);
+  }
+  HAL_GPIO_WritePin(SLATCH_GPIO_Port, SLATCH_Pin, 1);
+  HAL_GPIO_WritePin(SLATCH_GPIO_Port, SLATCH_Pin, 0);
+  HAL_GPIO_WritePin(SDATA_GPIO_Port, SDATA_Pin, 0);
+}
 
 /* USER CODE END 0 */
 
@@ -108,8 +189,33 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB)) {
+    __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU | PWR_FLAG_SB);
+  }
+  uint16_t data = 1;
+  uint8_t left = 1;
+  uint8_t times = 200;
   while (1)
   {
+	    shiftOut(data);
+	    int place = log2(data);
+	    if(left == 1) {
+	      data = data << 1;
+	    } else {
+	      data = data >> 1;
+	    }
+	    if(data == 32768) {
+	      left = 0;
+	    }
+	    if(data == 1) {
+	      left = 1;
+	    }
+	    HAL_Delay(waits[place]);
+	    times--;
+	    if(times == 0) {
+	    	setAlarm(5);
+	    	enterStandbyMode();
+	    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
